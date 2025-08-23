@@ -1,0 +1,96 @@
+/* Styles for the main dashboard container */
+.dashboard-container {
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Styles for the main grid layout of the dashboard */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+}
+
+/* Base card style */
+.card {
+    background-color: #261447; /* BG-Secondary */
+    border: 2px solid #3E2F5B; /* BG-Tertiary */
+    padding: 1rem 1.5rem;
+    /* Using box-shadow to create a "pixelated" border effect */
+    box-shadow: 4px 4px 0px #0D0221;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    color: #00F0FF; /* Accent/Highlight */
+    margin: 0 0 1rem 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Resource specific styles */
+.resource-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.resource {
+    background-color: #3E2F5B; /* BG-Tertiary */
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.resource-name {
+    font-weight: bold;
+    color: #F0F0F0;
+}
+
+.resource-bar-container {
+    width: 100%;
+    background-color: #0D0221;
+    border: 1px solid #A0A0A0;
+    padding: 2px;
+}
+
+.resource-bar {
+    height: 16px;
+    background-color: #7CFC00; /* Active/Running */
+    text-align: right;
+    font-size: 12px;
+    line-height: 16px;
+    color: #0D0221;
+}
+
+.resource-meta {
+    font-size: 0.9rem;
+    color: #A0A0A0; /* Secondary Text */
+}
+
+/* Activity Log Styles */
+.activity-log-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.activity-log-item {
+    font-family: monospace; /* Use monospace for log-like feel */
+}
+
+.activity-log-item.error {
+    color: #F44336; /* Error */
+}
+
+.activity-log-item.success {
+    color: #00FF7F; /* Success */
+}
