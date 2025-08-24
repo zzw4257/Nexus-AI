@@ -12,24 +12,29 @@ import 'reactflow/dist/style.css';
 import { useUnifiedModels } from '../../hooks/useUnifiedModels';
 import './StudioPage.css';
 
+// --- Constants ---
+const USER_API_KEY = 'sk-Q3EsPIoMUzEnhZapg1NYhgF2FvR9YVvuZTSPynitaujg2a6B';
+const USER_BASE_URL = 'https://www.dmxapi.cn/v1';
+
 // --- Initial Data ---
 const initialNodes = [
-  { id: '1', type: 'input', data: { label: 'User Input', topic: 'Artificial Intelligence' }, position: { x: 50, y: 150 } },
-  { id: '2', type: 'llmCall', data: { label: 'LLM Call: Brainstorm', model: 'local-mistral:latest', prompt: 'Brainstorm 5 sub-topics.' }, position: { x: 300, y: 100 } },
-  { id: '3', type: 'workflow', data: { label: 'Run Workflow: Generate Image', workflow: 'image_gen_v1.json' }, position: { x: 300, y: 250 } },
-  { id: '4', type: 'output', data: { label: 'Final Output' }, position: { x: 600, y: 150 } },
+  { id: '1', type: 'input', data: { label: 'User Input' }, position: { x: 50, y: 150 } },
+  { id: '2', type: 'llmCall', data: { label: 'LLM Call: Joke', model: 'openai-gpt-3.5-turbo', prompt: 'Tell me a short joke about AI.' }, position: { x: 300, y: 150 } },
+  { id: '3', type: 'output', data: { label: 'Final Output' }, position: { x: 600, y: 150 } },
 ];
-const initialEdges = [ { id: 'e1-2', source: '1', target: '2' }, { id: 'e1-3', source: '1', target: '3' }, { id: 'e2-4', source: '2', target: '4' }, { id: 'e3-4', source: '3', target: '4' }];
+const initialEdges = [ { id: 'e1-2', source: '1', target: '2' }, { id: 'e2-3', source: '2', target: '3' }];
 
-let id = 5;
+let id = 4;
 const getId = () => `${id++}`;
 
 // --- Inspector Panel Component ---
 const InspectorPanel = ({ selectedNode, onUpdateNode, models, isLoading }) => {
     if (!selectedNode) { return <div className="inspector-content">Select a node to inspect.</div>; }
+
     const handleDataChange = (key, value) => {
         onUpdateNode(selectedNode.id, { ...selectedNode.data, [key]: value });
     };
+
     const renderNodeSpecificFields = () => {
         switch (selectedNode.type) {
             case 'llmCall':
@@ -61,6 +66,7 @@ const InspectorPanel = ({ selectedNode, onUpdateNode, models, isLoading }) => {
                 return <small>Node has no specific properties.</small>;
         }
     };
+
     return (
         <div className="inspector-content">
             <label>Label:</label>
@@ -94,7 +100,7 @@ const StudioPage = () => {
   const handleRunSimulation = async () => {
     setIsRunning(true);
     setLogs([]);
-    addLog("Starting agent execution simulation...");
+    addLog("Starting agent execution...");
     const nodeMap = new Map(nodes.map(node => [node.id, node]));
     const adj = new Map(nodes.map(node => [node.id, []]));
     edges.forEach(edge => adj.get(edge.source)?.push(edge.target));
@@ -102,28 +108,38 @@ const StudioPage = () => {
     if (!startNode) { addLog("Execution failed: No 'input' node found.", 'error'); setIsRunning(false); return; }
 
     let currentNodeId = startNode.id;
-    let path = [currentNodeId];
-    let visited = new Set(path);
-
     while (currentNodeId) {
         const node = nodeMap.get(currentNodeId);
         addLog(`Executing node [${node.id}]: ${node.data.label}`);
-        await new Promise(res => setTimeout(res, 300));
-        if (node.type === 'llmCall') addLog(`   -> Simulating LLM call with model: ${node.data.model}`);
-        if (node.type === 'workflow') addLog(`   -> Triggering ComfyUI workflow: ${node.data.workflow}`);
-        if (node.type === 'output') { addLog(`Reached end node [${node.id}].`); break; }
+        await new Promise(res => setTimeout(res, 100));
 
-        const neighbors = adj.get(currentNodeId) || [];
-        const nextNodeId = neighbors.find(id => !visited.has(id));
-        if (nextNodeId) {
-            visited.add(nextNodeId);
-            path.push(nextNodeId);
-            currentNodeId = nextNodeId;
-        } else {
-            currentNodeId = null;
+        if (node.type === 'llmCall' && node.data.model?.includes('openai')) {
+            addLog(`   -> Making REAL API call to ${USER_BASE_URL}...`);
+            try {
+                const modelIdentifier = node.data.model.replace('openai-', '');
+                const response = await fetch(`${USER_BASE_URL}/chat/completions`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${USER_API_KEY}` },
+                    body: JSON.stringify({ model: modelIdentifier, messages: [{ role: "user", content: node.data.prompt }], temperature: 0.7 }),
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error?.message || 'Unknown API Error');
+                const message = data.choices[0]?.message?.content;
+                addLog(`   -> SUCCESS: ${message}`, 'success');
+            } catch (error) {
+                addLog(`   -> API ERROR: ${error.message}`, 'error');
+            }
+        } else if (node.type === 'llmCall') {
+             addLog(`   -> (Mock) Simulating LLM call with model: ${node.data.model}`);
+        } else if (node.type === 'workflow') {
+             addLog(`   -> (Mock) Triggering ComfyUI workflow: ${node.data.workflow}`);
         }
+
+        if (node.type === 'output') { addLog(`Reached end node [${node.id}].`); break; }
+        const neighbors = adj.get(currentNodeId) || [];
+        currentNodeId = neighbors[0] || null;
     }
-    addLog("Simulation finished.");
+    addLog("Execution finished.");
     setIsRunning(false);
   };
 
