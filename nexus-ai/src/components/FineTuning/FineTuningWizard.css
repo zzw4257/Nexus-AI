@@ -1,0 +1,113 @@
+/* Modal Overlay */
+.wizard-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Wizard Container */
+.wizard-container {
+    background-color: #261447;
+    border: 2px solid #3E2F5B;
+    width: 90%;
+    max-width: 800px;
+    height: 80vh;
+    box-shadow: 8px 8px 0px #0D0221;
+    display: flex;
+    flex-direction: column;
+}
+
+.wizard-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #3E2F5B;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wizard-title {
+    font-size: 1.5rem;
+    color: #00F0FF;
+    margin: 0;
+}
+
+.wizard-close-button {
+    background: none;
+    border: none;
+    color: #A0A0A0;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.wizard-close-button:hover {
+    color: #F0F0F0;
+}
+
+/* Wizard Content */
+.wizard-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.wizard-step-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.model-selection-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 40vh;
+    overflow-y: auto;
+    border: 1px solid #3E2F5B;
+}
+
+.model-selection-list li {
+    padding: 1rem;
+    border-bottom: 1px solid #3E2F5B;
+    cursor: pointer;
+}
+.model-selection-list li:hover {
+    background-color: #3E2F5B;
+}
+.model-selection-list li.selected {
+    background-color: #00F0FF;
+    color: #0D0221;
+}
+
+/* Wizard Footer */
+.wizard-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #3E2F5B;
+    display: flex;
+    justify-content: space-between;
+}
+
+.wizard-button {
+    background-color: #3E2F5B;
+    border: 1px solid #A0A0A0;
+    color: #F0F0F0;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 1rem;
+}
+
+.wizard-button.primary {
+    background-color: #00F0FF;
+    color: #0D0221;
+}
+
+.wizard-button:disabled {
+    background-color: #A0A0A0;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
