@@ -1,0 +1,82 @@
+.settings-page-container {
+    width: 100%;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 800px; /* Constrain width for better readability */
+    margin: 0 auto;
+}
+
+.settings-page-title {
+    font-size: 1.5rem;
+    color: #F0F0F0;
+    margin: 0;
+}
+
+.api-key-manager {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.api-key-card {
+    background-color: #261447; /* BG-Secondary */
+    border: 2px solid #3E2F5B; /* BG-Tertiary */
+    padding: 1.5rem;
+    box-shadow: 4px 4px 0px #0D0221;
+}
+
+.api-key-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.api-key-logo {
+    font-size: 1.5rem;
+    /* In a real app, this would be an <img> or a proper icon */
+}
+
+.api-key-provider-name {
+    font-size: 1.25rem;
+    color: #00F0FF; /* Accent */
+}
+
+.api-key-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.api-key-input {
+    background-color: #0D0221;
+    border: 1px solid #3E2F5B;
+    color: #F0F0F0;
+    padding: 0.75rem;
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 1rem;
+}
+
+.api-key-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.api-key-button {
+    background-color: #3E2F5B;
+    border: 1px solid #A0A0A0;
+    color: #F0F0F0;
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 1rem;
+}
+
+.api-key-button.primary {
+    background-color: #00F0FF; /* Accent */
+    color: #0D0221; /* BG-Primary */
+}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Dashboard from './components/Dashboard/Dashboard';
 import ModelsPage from './components/Models/ModelsPage';
 import StudioPage from './components/Studio/StudioPage';
+import SettingsPage from './components/Settings/SettingsPage';
 import './App.css';
 
 const App = () => {
@@ -13,6 +14,8 @@ const App = () => {
         return <ModelsPage />;
       case 'studio':
         return <StudioPage />;
+      case 'settings':
+        return <SettingsPage />;
       case 'dashboard':
       default:
         return <Dashboard />;
@@ -38,7 +41,7 @@ const App = () => {
           <NavLink view="models">[Models]</NavLink>
           <NavLink view="studio">[Studio]</NavLink>
           <a href="#" className="nav-link">[Marketplace]</a>
-          <a href="#" className="nav-link">[Settings]</a>
+          <NavLink view="settings">[Settings]</NavLink>
         </nav>
         <div className="user-menu">
           <a href="#" className="nav-link">[Logout]</a>
