@@ -3,6 +3,8 @@ import Dashboard from './components/Dashboard/Dashboard';
 import ModelsPage from './components/Models/ModelsPage';
 import StudioPage from './components/Studio/StudioPage';
 import SettingsPage from './components/Settings/SettingsPage';
+import MultimodalPage from './components/Multimodal/MultimodalPage';
+import DevStudioPage from './components/DevStudio/DevStudioPage';
 import './App.css';
 
 const App = () => {
@@ -14,6 +16,10 @@ const App = () => {
         return <ModelsPage />;
       case 'studio':
         return <StudioPage />;
+      case 'workflows':
+        return <MultimodalPage />;
+      case 'developer':
+        return <DevStudioPage />;
       case 'settings':
         return <SettingsPage />;
       case 'dashboard':
@@ -40,7 +46,8 @@ const App = () => {
           <NavLink view="dashboard">[Dashboard]</NavLink>
           <NavLink view="models">[Models]</NavLink>
           <NavLink view="studio">[Studio]</NavLink>
-          <a href="#" className="nav-link">[Marketplace]</a>
+          <NavLink view="workflows">[Workflows]</NavLink>
+          <NavLink view="developer">[Developer]</NavLink>
           <NavLink view="settings">[Settings]</NavLink>
         </nav>
         <div className="user-menu">

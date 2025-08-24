@@ -1,0 +1,98 @@
+.dev-studio-container {
+    display: grid;
+    grid-template-columns: 250px 1fr; /* Sidebar and main content */
+    grid-template-rows: 1fr auto; /* Main content and terminal */
+    grid-template-areas:
+        "file-browser editor"
+        "file-browser terminal";
+    height: 100%;
+    width: 100%;
+    background-color: #0D0221;
+}
+
+.dev-panel {
+    border: 1px solid #3E2F5B;
+    background-color: #261447;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Prevent content from spilling out */
+}
+
+.panel-title {
+    font-size: 1.1rem;
+    color: #00F0FF;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #3E2F5B;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+/* --- File Browser (Left) --- */
+.file-browser-panel {
+    grid-area: file-browser;
+}
+
+.file-tree {
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.file-tree ul {
+    list-style: none;
+    padding-left: 1rem;
+    margin: 0;
+}
+
+.file-tree li {
+    padding: 0.25rem 0;
+    cursor: pointer;
+    color: #A0A0A0;
+}
+
+.file-tree li:hover {
+    color: #F0F0F0;
+}
+
+.file-tree .file-item.active {
+    color: #00F0FF;
+    font-weight: bold;
+}
+
+/* --- Editor (Center) --- */
+.editor-panel {
+    grid-area: editor;
+    padding: 0; /* Let the textarea fill it */
+}
+
+.code-editor-textarea {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #0D0221;
+    color: #F0F0F0;
+    font-family: monospace;
+    font-size: 1rem;
+    padding: 1rem;
+    resize: none;
+    outline: none;
+}
+
+/* --- Terminal (Bottom) --- */
+.terminal-panel {
+    grid-area: terminal;
+    height: 250px;
+}
+
+.terminal-output {
+    padding: 1rem;
+    overflow-y: auto;
+    font-family: monospace;
+    white-space: pre-wrap;
+}
+
+.terminal-line {
+    margin-bottom: 0.25rem;
+}
+.terminal-line .prompt {
+    color: #00FF7F;
+}

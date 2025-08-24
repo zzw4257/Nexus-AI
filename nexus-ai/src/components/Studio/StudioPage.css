@@ -55,7 +55,68 @@
 /* Center Panel: Canvas */
 .canvas-container {
   flex-grow: 1;
-  position: relative; /* Needed for React Flow controls */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.react-flow-wrapper {
+  flex-grow: 1;
+  position: relative;
+}
+
+.log-panel {
+  height: 200px; /* Or whatever height is desired */
+  flex-shrink: 0;
+  background-color: #000;
+  border-top: 2px solid #3E2F5B;
+  color: #F0F0F0;
+  font-family: monospace;
+  font-size: 0.9rem;
+  padding: 1rem;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+.log-panel-title {
+  font-size: 1.1rem;
+  color: #00F0FF;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #3E2F5B;
+}
+
+.log-line {
+  margin-bottom: 0.25rem;
+}
+
+.log-line.error {
+    color: #F44336;
+}
+
+.studio-header {
+    display: flex;
+    padding: 0.5rem 1rem;
+    background-color: #261447;
+    border-bottom: 1px solid #3E2F5B;
+    align-items: center;
+    gap: 1rem;
+}
+
+.run-button {
+    background-color: #00FF7F; /* Success Green */
+    color: #0D0221;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.run-button:disabled {
+    background-color: #A0A0A0;
+    cursor: not-allowed;
 }
 
 /* Right Panel: Inspector */
